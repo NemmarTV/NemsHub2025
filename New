@@ -510,6 +510,9 @@ PlayerGui.DescendantAdded:Connect(function(descendant)
     end
 end)
 
+-- // // // Generals// // // --
+local e={General=d:AddTab({Title="Generals",Icon="box"})
+
 -- // // // Exclusives // // // --
 local shadowCountLabel = Instance.new("TextLabel", screenGui)
 shadowCountLabel.Size = UDim2.new(0, 200, 0, 50)
