@@ -6,5 +6,5 @@ getgenv().Games = {
   [3101667897] = "https://raw.githubusercontent.com/NemmarTV/Auto-Farm-Legends-of-Speed/refs/heads/main/AutoFarmLegendofSpeed",  -- Legend of Speed
   [10449761463] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/The%20Strongest%20Battleground.lua",  -- The Strongest Battlegrounds
   [18901165922] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Pet%20GO.lua", -- Pet GO
-  [16732694052] = "https://raw.githubusercontent.com/NemmarTV/NemsHub2025/refs/heads/main/NemsHub", -- Fisch
+  [16732694052] = "https://raw.githubusercontent.com/NemmarTV/NemsHub2025/refs/heads/main/Fisch2025", -- Fisch
 }
