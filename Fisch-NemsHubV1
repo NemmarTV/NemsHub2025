@@ -3463,6 +3463,8 @@ Main = Tap.General:AddSection('General') do
         [-] Add Megalodon Event Location
         [-] Add Crafting - Ancient Archives
         [-] Add Rod
+
+		Develop by NemsHubV1
         ]]
     })
 
