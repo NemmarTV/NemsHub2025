@@ -4101,13 +4101,13 @@ Teleporting:AddButton({
     end
 })
 
--- Teleporting button for "Terrapin Island"
+-- Teleporting button for "Ancient Isle"
 Teleporting:AddButton({
     Title = "Megalodon Event",
     Callback = function()
     local forceFieldPart = Instance.new("Part") -- Create a new part
 forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
-forceFieldPart.Position = Vector3.new(7159, 131, 1132) -- Adjusted position (2 units lower)
+forceFieldPart.Position = Vector3.new(1447.8507080078125, 131.49998474121094, -7649.64501953125) -- Adjusted position (2 units lower)
 forceFieldPart.Anchored = true -- Make sure the part does not fall
 forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
 forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
@@ -4117,7 +4117,7 @@ forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
 local forceField = Instance.new("ForceField") -- Create a new ForceField object
 forceField.Parent = forceFieldPart -- Parent the ForceField to the part
 wait()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1447.8507080078125, 133.49998474121094, -7649.64501953125)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7200, 130, 200)
     end
 })
 end
