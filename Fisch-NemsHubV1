@@ -1,3 +1,7 @@
+local a=loadstring(game:HttpGet("https://raw.githubusercontent.com/OopssSorry/LuaU-Free-Key-System-UI/main/source.lua"))()local b=false;local a=a:Init({Debug=false,Title="NemsHubV1 Key System",Description=nil,Link="https://direct-link.net/1268518/fisch-script-update",Discord="https://discord.gg/ag6WNjudvA",SaveKey=nil,Verify=function(a)if a=="UPDATEV1"then b=true;return true else return false end end,GuiParent=game.CoreGui})
+
+
+
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/Knuxy92/Ui-linoria/main/Fluent/Fluent.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
@@ -3054,7 +3058,8 @@ local Tap = {
 	Player = Window:AddTab({ Title = "Player", Icon = "user"}),
 	Shop = Window:AddTab({ Title = "Shop", Icon = "shopping-bag"}),
 	Configs = Window:AddTab({Title = "Discord Configs", Icon = "diamond"}),
-	Teleport = Window:AddTab({Title = "Island", Icon = "asterisk"}),
+	Teleport = Window:AddTab({Title = "Island", Icon = "map"}),
+	location = Window:AddTab({Title = "Rod", Icon = "asterisk"}),
 	Settings = Window:AddTab({Title = "Settings", Icon = "settings"})
 }
 
@@ -3603,7 +3608,7 @@ AllFuncs['Auto Find Boat Event'] = function()
 	end
 end
 Event = Tap.Event:AddSection('Event') do
-	IngredientDropdwon = Dropdown(Event, "Select Ingredient", "", IngredientList, false, "Ingredient Select")
+	IngredientDropdwon = Dropdown(Event, "Select Ingredient", "", IngredientList, true, "Ingredient Select")
 	Toggle(Event, "Auto Halloween Event ","", "Auto Find Boat Event")
 	Toggle(Event, "Back To Auto Fishing","", "Back To Fishing")
 	Toggle(Event, "Hop Server","Hop Server For Not Found Ingredient", "Hop Not Found Ingredient")
@@ -3989,9 +3994,30 @@ Teleporting:AddButton({
 })
 
 Teleporting:AddButton({
+    Title = "Vertigo",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-118.7, -515.3, 1142.3)
+    end
+})
+
+Teleporting:AddButton({
     Title = "Grand Reef",
     Callback = function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3528.8, 132.5, 545.2)
+    end
+})
+
+Teleporting:AddButton({
+    Title = "The Depths - Maze",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1705.4, -902.5, 1442.9)
+    end
+})
+
+Teleporting:AddButton({
+    Title = "The Depths",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(946.2, -711.7, 1257.2)
     end
 })
 
@@ -4094,6 +4120,38 @@ wait()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1447.8507080078125, 133.49998474121094, -7649.64501953125)
     end
 })
+end
+
+Teleporting = Tap.location:AddSection('location') do
+	-- Teleporting button for "Sunstone Island"
+Teleporting:AddButton({
+    Title = "Phoenix Rod",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5971.3, 272.4, 851.8)
+    end
+})
+
+Teleporting:AddButton({
+    Title = "Magnet Rod",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-195.8, 132.5, 1930)
+    end
+})
+
+Teleporting:AddButton({
+    Title = "Scurvy Rod",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2826.7, 214.9, 1511.9)
+    end
+})
+
+Teleporting:AddButton({
+    Title = "Trident Rod",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1484, -225.4, -2198.6)
+    end
+})
+
 end
 
 
