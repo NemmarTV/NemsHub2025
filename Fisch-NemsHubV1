@@ -3455,6 +3455,17 @@ workspace.active.ChildAdded:Connect(function(child)
 end)
 
 Main = Tap.General:AddSection('General') do
+
+    -- Add Changelog
+    Main:AddParagraph({
+        Title = "Changelog",
+        Content = [[
+        [-] Add Megalodon Event Location
+        [-] Add Crafting - Ancient Archives
+        [-] Add Rod
+        ]]
+    })
+
     SelectPosition = Main:AddParagraph({        
         Title = "Position : N/A"
     })
@@ -3469,7 +3480,6 @@ Main = Tap.General:AddSection('General') do
             SelectPosition:SetTitle("Position : " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.X)) .. " X " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Y)) .. " Y " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Z)) .. " Z")
         end
     })
-
 
     -- Teleporting button for "Megalodon Event"
     Main:AddButton({
