@@ -3455,19 +3455,44 @@ workspace.active.ChildAdded:Connect(function(child)
 end)
 
 Main = Tap.General:AddSection('General') do
-	SelectPosition = Main:AddParagraph({        
-		Title = "Position : N/A"
-	})
-	Toggle(Main, "Auto Farm Fish","", "Farm Fish")
-	Toggle(Main, "Teleport To Select Position","", "To Pos Stand")
-	Main:AddButton({
-		Title = "Select Position",
-		Callback = function()
-			Config['SelectPositionStand'] = LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame
-			SelectPosition:SetTitle("Position : "..tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.X)).." X "..tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Y)).." Y "..tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Z)).." Z")
-		end
-	})
+    SelectPosition = Main:AddParagraph({        
+        Title = "Position : N/A"
+    })
+    
+    Toggle(Main, "Auto Farm Fish", "", "Farm Fish")
+    Toggle(Main, "Teleport To Select Position", "", "To Pos Stand")
+    
+    Main:AddButton({
+        Title = "Select Position",
+        Callback = function()
+            Config['SelectPositionStand'] = LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame
+            SelectPosition:SetTitle("Position : " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.X)) .. " X " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Y)) .. " Y " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Z)) .. " Z")
+        end
+    })
+
+
+    -- Teleporting button for "Megalodon Event"
+    Main:AddButton({
+        Title = "Megalodon Event",
+        Callback = function()
+            local forceFieldPart = Instance.new("Part") -- Create a new part
+            forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
+            forceFieldPart.Position = Vector3.new(7268.7, 131.2, 564.7) -- Adjusted position
+            forceFieldPart.Anchored = true -- Make sure the part does not fall
+            forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
+            forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
+            forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
+            
+            -- Create a ForceField
+            local forceField = Instance.new("ForceField") -- Create a new ForceField object
+            forceField.Parent = forceFieldPart -- Parent the ForceField to the part
+            
+            wait()
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7268.7, 131.2, 564.7)
+        end
+    })
 end
+
 IngredientList = {}
 for i,v in pairs(workspace.active:GetDescendants()) do
 	if v.ClassName == "TextLabel" and v.Text == "Ingredient" then
@@ -4098,26 +4123,6 @@ Teleporting:AddButton({
     Title = "Enchant Relic",
     Callback = function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1309.2784423828125, -802.427001953125, -83.36397552490234)
-    end
-})
-
--- Teleporting button for "Ancient Isle"
-Teleporting:AddButton({
-    Title = "Megalodon Event",
-    Callback = function()
-    local forceFieldPart = Instance.new("Part") -- Create a new part
-forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
-forceFieldPart.Position = Vector3.new(7200, 130, 200) -- Adjusted position (2 units lower)
-forceFieldPart.Anchored = true -- Make sure the part does not fall
-forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
-forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
-forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
-
--- Create a ForceField
-local forceField = Instance.new("ForceField") -- Create a new ForceField object
-forceField.Parent = forceFieldPart -- Parent the ForceField to the part
-wait()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7200, 130, 200)
     end
 })
 end
