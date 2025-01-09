@@ -4004,6 +4004,15 @@ end
 
 Teleporting = Tap.Teleport:AddSection('Teleport') do
 	-- Teleporting button for "Sunstone Island"
+
+-- Teleporting button for "Crafting"
+Teleporting:AddButton({
+    Title = "Crafting - Ancient Archives",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3159.3, -745.5, 1681.9)
+    end
+})
+
 Teleporting:AddButton({
     Title = "Ancient Isle Waterfall",
     Callback = function()
@@ -4075,14 +4084,6 @@ Teleporting:AddButton({
     Title = "Executive Headquarters",
     Callback = function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-36.46199035644531, -246.55001831054688, 205.77120971679688)
-    end
-})
-
--- Teleporting button for "Enchant Room"
-Teleporting:AddButton({
-    Title = "Enchant Room",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1310.048095703125, -805.292236328125, -162.34507751464844)
     end
 })
 
