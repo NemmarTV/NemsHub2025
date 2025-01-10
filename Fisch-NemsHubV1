@@ -3489,7 +3489,7 @@ Main = Tap.General:AddSection('General') do
         Callback = function()
             local forceFieldPart = Instance.new("Part") -- Create a new part
             forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
-            forceFieldPart.Position = Vector3.new(7268.7, 131.2, 564.7) -- Adjusted position
+            forceFieldPart.Position = Vector3.new(7615, 132, 806) -- Adjusted position
             forceFieldPart.Anchored = true -- Make sure the part does not fall
             forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
             forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
@@ -3500,7 +3500,7 @@ Main = Tap.General:AddSection('General') do
             forceField.Parent = forceFieldPart -- Parent the ForceField to the part
             
             wait()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7268.7, 131.2, 564.7)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7615, 132, 806)
         end
     })
 end
