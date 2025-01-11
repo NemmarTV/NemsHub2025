@@ -1,18 +1,45 @@
-local a=loadstring(game:HttpGet("https://raw.githubusercontent.com/OopssSorry/LuaU-Free-Key-System-UI/main/source.lua"))()local b=false;local a=a:Init({Debug=false,Title="NemsHubV1 Key System",Description=nil,Link="https://direct-link.net/1268518/fisch-script-update",Discord="https://discord.gg/ag6WNjudvA",SaveKey=nil,Verify=function(a)if a=="UPDATEV1"then b=true;return true else return false end end,GuiParent=game.CoreGui})
+-- _______                          ___ ___      ___. ____   ________ 
+-- \      \   ____   _____   ______/   |   \ __ _\_ |_\   \ /   /_   |
+-- /   |   \_/ __ \ /     \ /  ___/    ~    \  |  \ __ \   Y   / |   |
+-- /    |    \  ___/|  Y Y  \\___ \\    Y    /  |  / \_\ \     /  |   |
+-- \____|__  /\___  >__|_|  /____  >\___|_  /|____/|___  /\___/   |___|
+-- 	   \/     \/      \/     \/       \/           \/              
 
 
+local b = false
+
+local a = loadstring(game:HttpGet("https://raw.githubusercontent.com/OopssSorry/LuaU-Free-Key-System-UI/main/source.lua"))()
+
+a = a:Init({
+    Debug = false,
+    Title = "NemsHubV1 Key System",
+    Description = nil,
+    Link = "https://direct-link.net/1268518/fisch-script-update",
+    Discord = "https://discord.gg/ag6WNjudvA",
+    SaveKey = nil,
+    Verify = function(a)
+        if a == "UPDATEV1" then
+            b = true
+            return true
+        else
+            return false
+        end
+    end,
+    GuiParent = game.CoreGui
+})
+-- asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdad
 
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/Knuxy92/Ui-linoria/main/Fluent/Fluent.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-	Title = "NemsHubV1 -",
+	Title = "NemsHubV1 ☠ -",
 	SubTitle = "https://discord.gg/ag6WNjudvA",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
-	Theme = "Rose",
+	Theme = "Amethyst",
 	MinimizeKey = Enum.KeyCode.LeftControl
 })
 
@@ -3053,6 +3080,7 @@ do -- INFO FISH
 end
 
 local Tap = {
+	Quest = Window:AddTab({Title = "<b>New ?</b>"}),
 	General = Window:AddTab({Title = "Main", Icon = "box"}),
 	Event = Window:AddTab({Title = "Event", Icon = "star"}),
 	Player = Window:AddTab({ Title = "Player", Icon = "user"}),
@@ -3460,9 +3488,9 @@ Main = Tap.General:AddSection('General') do
     Main:AddParagraph({
         Title = "Changelog",
         Content = [[
-        [-] Add Megalodon Event Location
-        [-] Add Crafting - Ancient Archives
-        [-] Add Rod
+        [-] Add Heaven's Rod
+        [-] Add New Tab interface
+        [-] Should i make this to Premium?
 
 		Develop by NemsHubV1
         ]]
@@ -3489,7 +3517,7 @@ Main = Tap.General:AddSection('General') do
         Callback = function()
             local forceFieldPart = Instance.new("Part") -- Create a new part
             forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
-            forceFieldPart.Position = Vector3.new(7615, 132, 806) -- Adjusted position
+            forceFieldPart.Position = Vector3.new(7458, 132, 548) -- Adjusted position
             forceFieldPart.Anchored = true -- Make sure the part does not fall
             forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
             forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
@@ -3500,7 +3528,7 @@ Main = Tap.General:AddSection('General') do
             forceField.Parent = forceFieldPart -- Parent the ForceField to the part
             
             wait()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7615, 132, 806)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7458, 132, 548)
         end
     })
 end
@@ -3898,29 +3926,31 @@ Shoppy = Tap.Shop:AddSection('Shop All') do
 		end
 	end
 end
+
+-- Button for buying Enchant Relic
 Shoppy:AddButton({
     Title = "Buy Enchant Relic",
     Description = "View [11,000C$]",
     Callback = function()
         local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
+        local character = player.Character or player.CharacterAdded:Wait()
 
--- Store the player's current position
-local previousPosition = character.HumanoidRootPart.Position
+        -- Store the player's current position
+        local previousPosition = character.HumanoidRootPart.Position
 
--- Teleport to the specified coordinates
-local targetPosition = Vector3.new(-931.5254516601562, 223.78355407714844, -986.8485717773438)
-character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
+        -- Teleport to the specified coordinates
+        local targetPosition = Vector3.new(-931.5254516601562, 223.78355407714844, -986.8485717773438)
+        character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
 
--- Fire the server function
-local merlin = workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Merlin"):WaitForChild("Merlin"):WaitForChild("power")
-merlin:InvokeServer()
+        -- Fire the server function
+        local merlin = workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Merlin"):WaitForChild("Merlin"):WaitForChild("power")
+        merlin:InvokeServer()
 
--- Wait for a brief moment before returning to the previous position
-wait(0)  -- Adjust the wait time if needed
+        -- Wait for a brief moment before returning to the previous position
+        wait(0)  -- Adjust the wait time if needed
 
--- Return to the previous position
-character:SetPrimaryPartCFrame(CFrame.new(previousPosition))
+        -- Return to the previous position
+        character:SetPrimaryPartCFrame(CFrame.new(previousPosition))
     end
 })
 
@@ -4172,6 +4202,43 @@ Teleporting:AddButton({
 
 end
 
+local Teleporting = Tap.Quest:AddSection('Quest') -- Corrected the placement of 'do'
+
+-- Teleporting button for "Sunstone Island"
+
+-- Add Changelog
+Teleporting:AddParagraph({
+    Title = "Heaven's Rod",
+    Content = [["A heavenly rod with glowing floating parts and a divine halo, emitting mythical particles and celestial animations"]]
+})
+
+-- Define teleport buttons
+local teleportLocations = {
+    {Title = "Lantern", Position = CFrame.new(-38.6, -246.6, 202.4)},
+    {Title = "Northern Expedition", Position = CFrame.new(19639.6, 140.9, 5310.3)},
+    {Title = "Lever 1", Position = CFrame.new(19853, 476.3, 4970)},
+    {Title = "Lever 2", Position = CFrame.new(19599, 543.8, 5613)},
+    {Title = "Lever 3", Position = CFrame.new(19432, 690.1, 5856)},
+    {Title = "Lever 4", Position = CFrame.new(20193, 854.4, 5641)},
+    {Title = "Lever 5", Position = CFrame.new(19882, 424.7, 5381)},
+    {Title = "Lever 6", Position = CFrame.new(19963, 586.9, 5569)},
+	{Title = "Button 1", Position = CFrame.new(399.5, 134.9, 269)},
+    {Title = "Button 2", Position = CFrame.new(2930.4, 281.2, 2591.4)},
+    {Title = "Button 3", Position = CFrame.new(-2568, 181.3, 1350)},
+    {Title = "Button 4", Position = CFrame.new(-1717, 148, 732)},
+    {Title = "Button 5", Position = CFrame.new(5504.4, 143.5, -316.8)},
+}
+
+-- Add buttons for each teleport location
+for _, location in ipairs(teleportLocations) do
+    Teleporting:AddButton({
+        Title = location.Title,
+        Callback = function()
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = location.Position
+        end
+    })
+end
+
 
 function sendwebhook(url, data)
 	local HttpService = game:GetService("HttpService")
@@ -4253,7 +4320,7 @@ do
 	InterfaceManager:BuildInterfaceSection(Tap.Settings)
 	Window:SelectTab(1)
 	SaveManager:LoadAutoloadConfig()
-	Fluent:SetTheme("Rose")
+	Fluent:SetTheme("Amethyst")
 	setfflag("TaskSchedulerTargetFps", "1000")
 setfpscap(120)
 while true do
