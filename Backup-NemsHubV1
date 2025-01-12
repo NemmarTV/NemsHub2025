@@ -3902,9 +3902,9 @@ WebHookConfigs = Tap.Configs:AddSection('WebHook') do
 				["content"] = ((Config['Ping Discord Id'] and tostring(Config['"Discord Id']) ~= "") and "<@"..tostring(Config['"Discord Id'])..">"),
 				["embeds"] = {
 					{
-						["id"]= 661605297,
+						["id"]= 1326824090866286592,
 						["title"]= "Fisch Notify",
-						["description"] = "** Player : "..LocalPlayer.Name.."\n THIS TESTING WEBHOOK**",
+						["description"] = "** Player : "..LocalPlayer.Name.."\n THIS USER'S USE THE SCRIPT**",
 						["color"]= 8646911,
 						["fields"]= {},
 						["thumbnail"]= {
@@ -3912,7 +3912,7 @@ WebHookConfigs = Tap.Configs:AddSection('WebHook') do
 						},
 						["footer"]= {
 							["text"]  = "NemsHubV1 Notify",
-							["icon_url"] = "https://cdn.discordapp.com/attachments/971367335405449246/1259442279672844308/Profile_1.png?ex=66fbc206&is=66fa7086&hm=0b8898eb98938e100ad3cede12d0a526d344cd3ba7d4f737f728ca188a1af027&"
+							["icon_url"] = "https://cdn.discordapp.com/attachments/1320221792257839215/1327916220283883601/adaptation.png?ex=6784cdda&is=67837c5a&hm=8e7e3fb29d5402d5f3cbb7052dfebeeee816495a23e231848de6f3b453769ce4&"
 						}
 					}
 				}
@@ -3925,6 +3925,7 @@ WebHookConfigs = Tap.Configs:AddSection('WebHook') do
 		end,
 	})
 end
+
 local TableZum = {}
 GetCount = function(NameFish)
 	local ReturnCound = 0
@@ -3976,6 +3977,7 @@ WebHookConfigsData = Tap.Configs:AddSection('Data Sending') do
 	Toggle(WebHookConfigsData, "Safe Whirlpool Spawn","","Safe Whirlpool Spawn")
 	Toggle(WebHookConfigsData, "Halloween Success","","Halloween Success")
 end
+
 
 Teleporting = Tap.Teleport:AddSection('Teleport') do
 	-- Teleporting button for "Sunstone Island"
