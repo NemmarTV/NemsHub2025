@@ -11,16 +11,14 @@ local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "UpdateFrameGui"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
 local frame = Instance.new("Frame")
 frame.Name = "UpdateFrame"
-frame.Size = UDim2.new(1, 0, 1, 0)  -- Changed from 1.5 to 1
-frame.Position = UDim2.new(1, 0, 0, 0)  -- Changed position to be on-screen
+frame.Size = UDim2.new(1, 0, 1.5, 0)
+frame.Position = UDim2.new(0, 0, -0.1, 0)
 frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.BorderSizePixel = 2
 frame.BorderColor3 = Color3.fromRGB(255, 255, 255)
 frame.Parent = screenGui
-
 local textLabel = Instance.new("TextLabel")
 textLabel.Name = "UpdateText"
 textLabel.Size = UDim2.new(1, 0, 1, 0)
