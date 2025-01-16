@@ -3519,7 +3519,7 @@ Main = Tap.General:AddSection('General') do
 			-- Set the target position for both the force field and teleportation
 			local targetPosition = Vector3.new(7458, 132, 548)
 			local surfaceHeight = 1  -- Set the height of the surface (Y position)
-			
+	
 			-- Create a new part for the force field
 			local forceFieldPart = Instance.new("Part")
 			forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
@@ -3528,15 +3528,20 @@ Main = Tap.General:AddSection('General') do
 			forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
 			forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
 			forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
-			
+	
 			-- Create a ForceField
 			local forceField = Instance.new("ForceField") -- Create a new ForceField object
 			forceField.Parent = forceFieldPart -- Parent the ForceField to the part
-			
+	
 			-- Teleport the player to the target position
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+	
+			-- Destroy the force field after a delay (e.g., 5 seconds)
+			wait(5) -- Delay before the force field is destroyed
+			forceFieldPart:Destroy() -- Remove the force field part and its components from the game
 		end
 	})
+	
 
 
 end
