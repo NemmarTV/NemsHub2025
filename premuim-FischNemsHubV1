@@ -34,7 +34,7 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-	Title = "NemsHubV1 ☠ -",
+	Title = "NemsHubV1 Premuim V1.1 -",
 	SubTitle = "https://discord.gg/ag6WNjudvA",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
@@ -3081,6 +3081,7 @@ end
 
 local Tap = {
 	Quest = Window:AddTab({Title = "<b>New ?</b>"}),
+	Algae = Window:AddTab({Title = "<b>Algae (Event)</b>"}),
 	General = Window:AddTab({Title = "Main", Icon = "box"}),
 	Event = Window:AddTab({Title = "Event", Icon = "star"}),
 	Player = Window:AddTab({ Title = "Player", Icon = "user"}),
@@ -3512,25 +3513,32 @@ Main = Tap.General:AddSection('General') do
     })
 
     -- Teleporting button for "Megalodon Event"
-    Main:AddButton({
-        Title = "Megalodon Event",
-        Callback = function()
-            local forceFieldPart = Instance.new("Part") -- Create a new part
-            forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
-            forceFieldPart.Position = Vector3.new(7458, 132, 548) -- Adjusted position
-            forceFieldPart.Anchored = true -- Make sure the part does not fall
-            forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
-            forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
-            forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
-            
-            -- Create a ForceField
-            local forceField = Instance.new("ForceField") -- Create a new ForceField object
-            forceField.Parent = forceFieldPart -- Parent the ForceField to the part
-            
-            wait()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7458, 132, 548)
-        end
-    })
+	Main:AddButton({
+		Title = "Megalodon Event",
+		Callback = function()
+			-- Set the target position for both the force field and teleportation
+			local targetPosition = Vector3.new(7458, 132, 548)
+			local surfaceHeight = 1  -- Set the height of the surface (Y position)
+			
+			-- Create a new part for the force field
+			local forceFieldPart = Instance.new("Part")
+			forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
+			forceFieldPart.Position = Vector3.new(targetPosition.X, surfaceHeight + 1, targetPosition.Z) -- Set the position slightly above the surface
+			forceFieldPart.Anchored = true -- Make sure the part does not fall
+			forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
+			forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
+			forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
+			
+			-- Create a ForceField
+			local forceField = Instance.new("ForceField") -- Create a new ForceField object
+			forceField.Parent = forceFieldPart -- Parent the ForceField to the part
+			
+			-- Teleport the player to the target position
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+		end
+	})
+
+
 end
 
 IngredientList = {}
@@ -4202,6 +4210,135 @@ Teleporting:AddButton({
 
 end
 
+----------------------------------------------------------------------------------
+local Teleporting = Tap.Algae:AddSection('Algae')
+
+-- Teleporting button for "Sunstone Island"
+
+-- Add Changelog
+Teleporting:AddParagraph({
+    Title = "Important Notice!",
+    Content = "Use a Boat Before teleport" -- Remove HTML tags, if unsupported
+})
+
+
+-- Function to get the terrain height using Raycasting
+local function getSurfaceHeight(position)
+    local rayOrigin = position + Vector3.new(0, 10, 0)  -- Start the ray 50 studs above the surface
+    local rayDirection = Vector3.new(0, -100, 0)  -- Ray pointing downwards
+    
+    local raycastResult = workspace:Raycast(rayOrigin, rayDirection)
+    
+    if raycastResult then
+        return raycastResult.Position.Y  -- Return the Y position of the hit point
+    else
+        return position.Y  -- If nothing is hit, return the original Y (in case it's air)
+    end
+end
+
+-- Define teleport buttons
+local teleportLocations = {
+    {Title = "Snowcap Algae", Position = CFrame.new(1827, 130, 4158)},
+    {Title = "Ancient Algae", Position = CFrame.new(5130, 130, 1347)},
+    {Title = "Mushgrove Algae", Position = CFrame.new(2660.3, 130.6, -1848.5)},
+    {Title = "Forsaken Algae", Position = CFrame.new(-3854.7, 130.6, 2120.2)},
+}
+
+-- Add buttons for each teleport location
+for _, location in ipairs(teleportLocations) do
+    Teleporting:AddButton({
+        Title = location.Title,
+        Callback = function()
+            -- Check if the character exists and has a HumanoidRootPart
+            local player = game.Players.LocalPlayer
+            local character = player.Character
+            if character and character:FindFirstChild("HumanoidRootPart") then
+                -- Get the surface height using raycasting
+                local surfaceHeight = getSurfaceHeight(location.Position.Position)
+                
+                -- Adjust ForceField's Y position to be slightly above the surface
+                local forceFieldPosition = Vector3.new(location.Position.X, surfaceHeight + 1, location.Position.Z) 
+
+                -- Create a ForceField at the location before teleporting
+                local forceFieldPart = Instance.new("Part")
+                forceFieldPart.Size = Vector3.new(10, 1, 10) -- Size of the ForceField
+                forceFieldPart.Position = forceFieldPosition  -- Set ForceField position based on surface height
+                forceFieldPart.Anchored = true -- Prevent it from falling
+                forceFieldPart.BrickColor = BrickColor.new("White") -- White color
+                forceFieldPart.Material = Enum.Material.SmoothPlastic -- Material type
+                forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
+
+                -- Create the ForceField
+                local forceField = Instance.new("ForceField")
+                forceField.Parent = forceFieldPart -- Parent the ForceField to the part
+
+                -- Teleport player to the location, but check if they are already there
+                if character.HumanoidRootPart.Position.X ~= location.Position.X or
+                   character.HumanoidRootPart.Position.Z ~= location.Position.Z then
+                    character.HumanoidRootPart.CFrame = location.Position
+                end
+
+                -- Optionally, remove the ForceField after a short delay
+                wait(1)
+                forceFieldPart:Destroy() -- Remove the ForceField part after the teleportation
+            else
+                warn("Character or HumanoidRootPart not found.")
+            end
+        end
+    })
+end
+
+
+-- -- Button for sequential teleportation with ForceFields at each location
+-- Teleporting:AddButton({
+--     Title = "Teleport All Locations with Floating ForceFields",
+--     Callback = function()
+--         local teleportPositions = {
+--             {Position = Vector3.new(7458, 132, 548)},
+--             {Position = Vector3.new(1827, 130, 4158)},
+--             {Position = Vector3.new(5130, 130, 1347)},
+--             {Position = Vector3.new(2660.3, 130.6, -1848.5)},
+--             {Position = Vector3.new(-3854.7, 130.6, 2120.2)}
+--         }
+
+--         -- Teleport to each position and add a ForceField
+--         for _, location in ipairs(teleportPositions) do
+--             -- Get the surface height using raycasting
+--             local surfaceHeight = getSurfaceHeight(location.Position)
+            
+--             -- Adjust ForceField's Y position to be slightly above the surface
+--             local forceFieldPosition = Vector3.new(location.Position.X, surfaceHeight + 5, location.Position.Z)
+
+--             -- Create a ForceField at the location
+--             local forceFieldPart = Instance.new("Part")
+--             forceFieldPart.Size = Vector3.new(10, 1, 10) -- Size of the ForceField
+--             forceFieldPart.Position = forceFieldPosition -- Set ForceField position based on surface height
+--             forceFieldPart.Anchored = true -- Prevent it from falling
+--             forceFieldPart.BrickColor = BrickColor.new("White") -- White color
+--             forceFieldPart.Material = Enum.Material.SmoothPlastic -- Material type
+--             forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
+
+--             -- Create the ForceField
+--             local forceField = Instance.new("ForceField")
+--             forceField.Parent = forceFieldPart -- Parent the ForceField to the part
+
+--             -- Teleport the player to the location
+--             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(location.Position)
+
+--             -- Wait a short moment to allow the teleportation to happen
+--             wait(0.5)
+
+--             -- Optionally, remove the ForceField after a short delay
+--             forceFieldPart:Destroy() -- Remove the ForceField part after the teleportation
+--         end
+--     end
+-- })
+
+
+----------------------------------------------------------------------------------------
+
+
+
 local Teleporting = Tap.Quest:AddSection('Quest') -- Corrected the placement of 'do'
 
 -- Teleporting button for "Sunstone Island"
@@ -4216,6 +4353,12 @@ Teleporting:AddParagraph({
 local teleportLocations = {
     {Title = "Lantern", Position = CFrame.new(-38.6, -246.6, 202.4)},
     {Title = "Northern Expedition", Position = CFrame.new(19639.6, 140.9, 5310.3)},
+	{Title = "Northglider", Position = CFrame.new(20240.9,756.5,5756.5)},
+	{Title = "Camp 1", Position = CFrame.new(19527.6,132.7,5294.5)},
+	{Title = "CAMP 2", Position = CFrame.new(19998,1136.4,5520.2)},
+	{Title = "North", Position = CFrame.new(19558.5,132.7,5301.5)},
+	{Title = "Mountain Start", Position = CFrame.new(20208,208.4,5278.7)},
+	{Title = "Peak", Position = CFrame.new(19998,1136.4,5520.2)},
     {Title = "Lever 1", Position = CFrame.new(19853, 476.3, 4970)},
     {Title = "Lever 2", Position = CFrame.new(19599, 543.8, 5613)},
     {Title = "Lever 3", Position = CFrame.new(19432, 690.1, 5856)},
