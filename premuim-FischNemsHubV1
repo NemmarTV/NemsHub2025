@@ -4227,21 +4227,7 @@ Teleporting:AddParagraph({
 })
 
 
--- Function to get the terrain height using Raycasting
-local function getSurfaceHeight(position)
-    local rayOrigin = position + Vector3.new(0, 10, 0)  -- Start the ray 50 studs above the surface
-    local rayDirection = Vector3.new(0, -100, 0)  -- Ray pointing downwards
-    
-    local raycastResult = workspace:Raycast(rayOrigin, rayDirection)
-    
-    if raycastResult then
-        return raycastResult.Position.Y  -- Return the Y position of the hit point
-    else
-        return position.Y  -- If nothing is hit, return the original Y (in case it's air)
-    end
-end
-
--- Define teleport buttons
+-- Define teleport locations
 local teleportLocations = {
     {Title = "Snowcap Algae", Position = CFrame.new(1827, 130, 4158)},
     {Title = "Ancient Algae", Position = CFrame.new(5130, 130, 1347)},
@@ -4254,90 +4240,15 @@ for _, location in ipairs(teleportLocations) do
     Teleporting:AddButton({
         Title = location.Title,
         Callback = function()
-            -- Check if the character exists and has a HumanoidRootPart
             local player = game.Players.LocalPlayer
-            local character = player.Character
-            if character and character:FindFirstChild("HumanoidRootPart") then
-                -- Get the surface height using raycasting
-                local surfaceHeight = getSurfaceHeight(location.Position.Position)
-                
-                -- Adjust ForceField's Y position to be slightly above the surface
-                local forceFieldPosition = Vector3.new(location.Position.X, surfaceHeight + 1, location.Position.Z) 
-
-                -- Create a ForceField at the location before teleporting
-                local forceFieldPart = Instance.new("Part")
-                forceFieldPart.Size = Vector3.new(10, 1, 10) -- Size of the ForceField
-                forceFieldPart.Position = forceFieldPosition  -- Set ForceField position based on surface height
-                forceFieldPart.Anchored = true -- Prevent it from falling
-                forceFieldPart.BrickColor = BrickColor.new("White") -- White color
-                forceFieldPart.Material = Enum.Material.SmoothPlastic -- Material type
-                forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
-
-                -- Create the ForceField
-                local forceField = Instance.new("ForceField")
-                forceField.Parent = forceFieldPart -- Parent the ForceField to the part
-
-                -- Teleport player to the location, but check if they are already there
-                if character.HumanoidRootPart.Position.X ~= location.Position.X or
-                   character.HumanoidRootPart.Position.Z ~= location.Position.Z then
-                    character.HumanoidRootPart.CFrame = location.Position
-                end
-
-                -- Optionally, remove the ForceField after a short delay
-                wait(1)
-                forceFieldPart:Destroy() -- Remove the ForceField part after the teleportation
+            if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                player.Character.HumanoidRootPart.CFrame = location.Position
             else
-                warn("Character or HumanoidRootPart not found.")
+                warn("Player or HumanoidRootPart not found!")
             end
         end
     })
 end
-
-
--- -- Button for sequential teleportation with ForceFields at each location
--- Teleporting:AddButton({
---     Title = "Teleport All Locations with Floating ForceFields",
---     Callback = function()
---         local teleportPositions = {
---             {Position = Vector3.new(7458, 132, 548)},
---             {Position = Vector3.new(1827, 130, 4158)},
---             {Position = Vector3.new(5130, 130, 1347)},
---             {Position = Vector3.new(2660.3, 130.6, -1848.5)},
---             {Position = Vector3.new(-3854.7, 130.6, 2120.2)}
---         }
-
---         -- Teleport to each position and add a ForceField
---         for _, location in ipairs(teleportPositions) do
---             -- Get the surface height using raycasting
---             local surfaceHeight = getSurfaceHeight(location.Position)
-            
---             -- Adjust ForceField's Y position to be slightly above the surface
---             local forceFieldPosition = Vector3.new(location.Position.X, surfaceHeight + 5, location.Position.Z)
-
---             -- Create a ForceField at the location
---             local forceFieldPart = Instance.new("Part")
---             forceFieldPart.Size = Vector3.new(10, 1, 10) -- Size of the ForceField
---             forceFieldPart.Position = forceFieldPosition -- Set ForceField position based on surface height
---             forceFieldPart.Anchored = true -- Prevent it from falling
---             forceFieldPart.BrickColor = BrickColor.new("White") -- White color
---             forceFieldPart.Material = Enum.Material.SmoothPlastic -- Material type
---             forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
-
---             -- Create the ForceField
---             local forceField = Instance.new("ForceField")
---             forceField.Parent = forceFieldPart -- Parent the ForceField to the part
-
---             -- Teleport the player to the location
---             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(location.Position)
-
---             -- Wait a short moment to allow the teleportation to happen
---             wait(0.5)
-
---             -- Optionally, remove the ForceField after a short delay
---             forceFieldPart:Destroy() -- Remove the ForceField part after the teleportation
---         end
---     end
--- })
 
 
 ----------------------------------------------------------------------------------------
