@@ -6,27 +6,27 @@
 -- 	   \/     \/      \/     \/       \/           \/              
 
 
-local b = false
+-- local b = false
 
-local a = loadstring(game:HttpGet("https://raw.githubusercontent.com/OopssSorry/LuaU-Free-Key-System-UI/main/source.lua"))()
+-- local a = loadstring(game:HttpGet("https://raw.githubusercontent.com/OopssSorry/LuaU-Free-Key-System-UI/main/source.lua"))()
 
-a = a:Init({
-    Debug = false,
-    Title = "NemsHubV1 Key System",
-    Description = nil,
-    Link = "https://direct-link.net/1268518/fisch-script-update",
-    Discord = "https://discord.gg/ag6WNjudvA",
-    SaveKey = nil,
-    Verify = function(a)
-        if a == "UPDATEV1" then
-            b = true
-            return true
-        else
-            return false
-        end
-    end,
-    GuiParent = game.CoreGui
-})
+-- a = a:Init({
+--     Debug = false,
+--     Title = "NemsHubV1 Key System",
+--     Description = nil,
+--     Link = "https://direct-link.net/1268518/fisch-script-update",
+--     Discord = "https://discord.gg/ag6WNjudvA",
+--     SaveKey = nil,
+--     Verify = function(a)
+--         if a == "UPDATEV1" then
+--             b = true
+--             return true
+--         else
+--             return false
+--         end
+--     end,
+--     GuiParent = game.CoreGui
+-- })
 -- asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdad
 
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/Knuxy92/Ui-linoria/main/Fluent/Fluent.lua"))()
