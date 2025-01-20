@@ -6,29 +6,6 @@
 -- 	   \/     \/      \/     \/       \/           \/              
 
 
--- local b = false
-
--- local a = loadstring(game:HttpGet("https://raw.githubusercontent.com/OopssSorry/LuaU-Free-Key-System-UI/main/source.lua"))()
-
--- a = a:Init({
---     Debug = false,
---     Title = "NemsHubV1 Key System",
---     Description = nil,
---     Link = "https://direct-link.net/1268518/fisch-script-update",
---     Discord = "https://discord.gg/ag6WNjudvA",
---     SaveKey = nil,
---     Verify = function(a)
---         if a == "UPDATEV1" then
---             b = true
---             return true
---         else
---             return false
---         end
---     end,
---     GuiParent = game.CoreGui
--- })
--- asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdad
-
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/Knuxy92/Ui-linoria/main/Fluent/Fluent.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
@@ -3080,14 +3057,14 @@ do -- INFO FISH
 end
 
 local Tap = {
+	General = Window:AddTab({Title = "Main", Icon = "box"}),
 	Quest = Window:AddTab({Title = "<b>New ?</b>"}),
 	Algae = Window:AddTab({Title = "<b>Algae (Event)</b>"}),
-	General = Window:AddTab({Title = "Main", Icon = "box"}),
 	Event = Window:AddTab({Title = "Event", Icon = "star"}),
 	Player = Window:AddTab({ Title = "Player", Icon = "user"}),
 	Shop = Window:AddTab({ Title = "Shop", Icon = "shopping-bag"}),
 	Configs = Window:AddTab({Title = "Discord Configs", Icon = "diamond"}),
-	Teleport = Window:AddTab({Title = "Island", Icon = "map"}),
+	Teleport = Window:AddTab({Title = "Location", Icon = "map"}),
 	location = Window:AddTab({Title = "Rod", Icon = "asterisk"}),
 	Settings = Window:AddTab({Title = "Settings", Icon = "settings"})
 }
@@ -3488,10 +3465,15 @@ Main = Tap.General:AddSection('General') do
     -- Add Changelog
     Main:AddParagraph({
         Title = "Changelog",
-        Content = [[
-        [-] Add Heaven's Rod
-        [-] Add New Tab interface
-        [-] Should i make this to Premium?
+        Content = [[ 
+		[+] Add [-] Remove [x] Fix
+        [+] Add Heaven's Rod
+        [+] Add New Tab interface
+        [+] Add Anti Lag (Once)
+		[+] Add Event Map Atlantean Storm
+		[+] Update Freemuim
+		[x] Fix Main
+		[x] Fix isle to Location
 
 		Develop by NemsHubV1
         ]]
@@ -3910,6 +3892,35 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 			AllFuncs.HopServer(false)
 		end
 	})
+	MiscPlayer:AddButton({
+		Title = "Anti Lag (Once)",
+		Description = "",
+		Callback = function()
+			for _, object in pairs(game:GetDescendants()) do
+				if object:IsA("Part") or object:IsA("UnionOperation") or object:IsA("MeshPart") then
+					if object.Transparency ~= 1 then
+						object.Material = Enum.Material.SmoothPlastic
+					end
+				elseif object:IsA("ParticleEmitter") or object:IsA("Trail") then
+					object:Destroy()
+				end
+			end
+			Notify("Anti Lag Success")
+		end
+	})
+	-- MiscPlayer:AddButton({
+	-- 	Title = "Destroy All Particle",
+	-- 	Description = "",
+	-- 	Callback = function()
+	-- 		for _, object in pairs(game:GetDescendants()) do
+	-- 			if object:IsA("ParticleEmitter") or object:IsA("Trail") then
+	-- 				object:Destroy()
+	-- 			end
+	-- 		end
+	-- 		Notify("Success Destroy Particle")
+	-- 	end
+	-- })
+	
 end
 
 Shoppy = Tap.Shop:AddSection('Shop All') do
@@ -4061,6 +4072,13 @@ Teleporting = Tap.Teleport:AddSection('Teleport') do
 	-- Teleporting button for "Sunstone Island"
 
 -- Teleporting button for "Crafting"
+Teleporting:AddButton({
+    Title = "Atlantean Storm (Event)",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3847.5, 151.4, 439.4)
+    end
+})
+
 Teleporting:AddButton({
     Title = "Crafting - Ancient Archives",
     Callback = function()
