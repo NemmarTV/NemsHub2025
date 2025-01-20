@@ -1,5 +1,9 @@
-local a=loadstring(game:HttpGet("https://raw.githubusercontent.com/OopssSorry/LuaU-Free-Key-System-UI/main/source.lua"))()local b=false;local a=a:Init({Debug=false,Title="NemsHubV1 Key System",Description=nil,Link="https://direct-link.net/1268518/fisch-script-update",Discord="https://discord.gg/ag6WNjudvA",SaveKey=nil,Verify=function(a)if a=="UPDATEV1"then b=true;return true else return false end end,GuiParent=game.CoreGui})
-
+-- _______                          ___ ___      ___. ____   ________ 
+-- \      \   ____   _____   ______/   |   \ __ _\_ |_\   \ /   /_   |
+-- /   |   \_/ __ \ /     \ /  ___/    ~    \  |  \ __ \   Y   / |   |
+-- /    |    \  ___/|  Y Y  \\___ \\    Y    /  |  / \_\ \     /  |   |
+-- \____|__  /\___  >__|_|  /____  >\___|_  /|____/|___  /\___/   |___|
+-- 	   \/     \/      \/     \/       \/           \/              
 
 
 local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/Knuxy92/Ui-linoria/main/Fluent/Fluent.lua"))()
@@ -7,12 +11,12 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-	Title = "NemsHubV1 -",
+	Title = "NemsHubV1 Freemuim V1.1 -",
 	SubTitle = "https://discord.gg/ag6WNjudvA",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
 	Acrylic = false, 
-	Theme = "Rose",
+	Theme = "Aqua",
 	MinimizeKey = Enum.KeyCode.LeftControl
 })
 
@@ -3054,11 +3058,12 @@ end
 
 local Tap = {
 	General = Window:AddTab({Title = "Main", Icon = "box"}),
+	Algae = Window:AddTab({Title = "<b>Algae (Event)</b>"}),
 	Event = Window:AddTab({Title = "Event", Icon = "star"}),
 	Player = Window:AddTab({ Title = "Player", Icon = "user"}),
 	Shop = Window:AddTab({ Title = "Shop", Icon = "shopping-bag"}),
 	Configs = Window:AddTab({Title = "Discord Configs", Icon = "diamond"}),
-	Teleport = Window:AddTab({Title = "Island", Icon = "map"}),
+	Teleport = Window:AddTab({Title = "Location", Icon = "map"}),
 	location = Window:AddTab({Title = "Rod", Icon = "asterisk"}),
 	Settings = Window:AddTab({Title = "Settings", Icon = "settings"})
 }
@@ -3455,6 +3460,24 @@ workspace.active.ChildAdded:Connect(function(child)
 end)
 
 Main = Tap.General:AddSection('General') do
+
+	-- Add Changelog
+    Main:AddParagraph({
+        Title = "Changelog",
+        Content = [[ 
+		[+] Add [-] Remove [x] Fix
+		[+] Add Algae(Event) Location
+        [+] Add Anti Lag (Once)
+		[+] Add Event Map Atlantean Storm
+		[+] Update Freemuim
+		[x] Fix Main
+		[x] Fix isle to Location
+
+		Develop by NemsHubV1
+        ]]
+    })
+
+
 	SelectPosition = Main:AddParagraph({        
 		Title = "Position : N/A"
 	})
@@ -3834,6 +3857,23 @@ MiscPlayer = Tap.Player:AddSection('Misc Player') do
 	})
 end
 
+MiscPlayer:AddButton({
+	Title = "Anti Lag (Once)",
+	Description = "",
+	Callback = function()
+		for _, object in pairs(game:GetDescendants()) do
+			if object:IsA("Part") or object:IsA("UnionOperation") or object:IsA("MeshPart") then
+				if object.Transparency ~= 1 then
+					object.Material = Enum.Material.SmoothPlastic
+				end
+			elseif object:IsA("ParticleEmitter") or object:IsA("Trail") then
+				object:Destroy()
+			end
+		end
+		Notify("Anti Lag Success")
+	end
+})
+
 Shoppy = Tap.Shop:AddSection('Shop All') do
 	Toggle(Shoppy, "Teleport To Buy", "", "Teleport To Buy")
 	for i,v in pairs(workspace.world.interactables:GetDescendants()) do
@@ -3981,6 +4021,22 @@ end
 
 Teleporting = Tap.Teleport:AddSection('Teleport') do
 	-- Teleporting button for "Sunstone Island"
+
+-- Teleporting button for "Crafting"
+Teleporting:AddButton({
+    Title = "Atlantean Storm (Event)",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3847.5, 151.4, 439.4)
+    end
+})
+
+Teleporting:AddButton({
+    Title = "Crafting - Ancient Archives",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3159.3, -745.5, 1681.9)
+    end
+})
+
 Teleporting:AddButton({
     Title = "Ancient Isle Waterfall",
     Callback = function()
@@ -4052,14 +4108,6 @@ Teleporting:AddButton({
     Title = "Executive Headquarters",
     Callback = function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-36.46199035644531, -246.55001831054688, 205.77120971679688)
-    end
-})
-
--- Teleporting button for "Enchant Room"
-Teleporting:AddButton({
-    Title = "Enchant Room",
-    Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1310.048095703125, -805.292236328125, -162.34507751464844)
     end
 })
 
@@ -4237,7 +4285,7 @@ do
 	InterfaceManager:BuildInterfaceSection(Tap.Settings)
 	Window:SelectTab(1)
 	SaveManager:LoadAutoloadConfig()
-	Fluent:SetTheme("Rose")
+	Fluent:SetTheme("Aqua")
 	setfflag("TaskSchedulerTargetFps", "1000")
 setfpscap(120)
 while true do
