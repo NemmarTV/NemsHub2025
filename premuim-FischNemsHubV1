@@ -11,7 +11,7 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-	Title = "NemsHubV1 Premuim V1.3 -",
+	Title = "NemsHubV1 Premuim V1.5 -",
 	SubTitle = "https://discord.gg/ag6WNjudvA",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(550, 350),
@@ -35,6 +35,7 @@ do
 	-- \\ Module GetService // --
 
 	ReplicatedStorage = game:GetService('ReplicatedStorage')
+	Lighting = game:GetService("Lighting")
 	RunService = game:GetService("RunService")
 	VirtualInputManager = game:GetService('VirtualInputManager')
 	CollectionService = game:GetService("CollectionService")
@@ -3058,15 +3059,12 @@ end
 
 local Tap = {
 	Changelogs = Window:AddTab({Title = "Updates", Icon = "box"}),
+	Auto = Window:AddTab({Title = "AutoFarm", Icon = "box"}),
 	General = Window:AddTab({Title = "Main", Icon = "box"}),
-	Algae = Window:AddTab({Title = "<b>Algae (Event)</b>"}),
 	Event = Window:AddTab({Title = "Event", Icon = "star"}),
-	Player = Window:AddTab({ Title = "Player", Icon = "user"}),
-	Shop = Window:AddTab({ Title = "Shop", Icon = "shopping-bag"}),
-	Configs = Window:AddTab({Title = "Discord Configs", Icon = "diamond"}),
-	Teleport = Window:AddTab({Title = "Location", Icon = "map"}),
-	location = Window:AddTab({Title = "Rod", Icon = "asterisk"}),
-	Settings = Window:AddTab({Title = "Settings", Icon = "settings"})
+	Player = Window:AddTab({ Title = "Player", Icon = "user"})
+	-- Configs = Window:AddTab({Title = "Discord Configs", Icon = "diamond"}),
+	-- Settings = Window:AddTab({Title = "Settings", Icon = "settings"})
 }
 
 Toggle = function(Section, NameIndex, Description, ConfigName, Function, ...)
@@ -3260,27 +3258,6 @@ AllFuncs['Toggle Jump Power'] = function()
 		pcall(function()
 			LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = 50
 		end)
-	end
-end
-
-AllFuncs['Toggle Noclip'] = function()
-	while Config['Toggle Noclip'] and task.wait() do
-		local charParts = LocalPlayer.Character:GetDescendants()
-		for i,v in pairs(charParts) do
-			if v:IsA("BasePart") and LocalPlayer.Character then
-				if v.CanCollide then
-					v.CanCollide = false
-				end
-			end
-		end
-	end
-	if not Config['Toggle Noclip'] then
-		local charParts = LocalPlayer.Character:GetDescendants()
-		for i,v in pairs(charParts) do
-			if v:IsA("BasePart") and LocalPlayer.Character then
-				v.CanCollide = true
-			end
-		end
 	end
 end
 
@@ -3507,61 +3484,393 @@ Changelogs:AddParagraph({
     ]]
 })
 
+-- Add Changelog V1.4
+Changelogs:AddParagraph({
+    Title = "Changelog V1.4",
+    Content = [[
+        [+] Add [-] Remove [x] Fix
+
+        [x] Fix Isolate Depth Location
+		[x] Fix Brine pool Location
+
+        Developed by NemsHubV1
+    ]]
+})
+
+-- Add Changelog V1.5
+Changelogs:AddParagraph({
+    Title = "Changelog V1.5",
+    Content = [[
+        [+] Add [-] Remove [x] Fix
+
+        [x] Fix the Location issue
+		[+] Add Location/Algae/Rod/Shop to Main
+		[+] Add Auto Farm Interface
+		[-] Remove Discord Configs and Settings
 
 
+		And also im looking for developer who know how to Code Lua Script
+		Just DM/PM me in Discord Discord.gg/ag6WNjudvA
 
+        Developed by NemsHubV1
+    ]]
+})
 
-Main = Tap.General:AddSection('General') do
+-----------------------------------------------Auto--------------------------------
+AutoFarm = Tap.Auto:AddSection('Auto') do
 
-    SelectPosition = Main:AddParagraph({        
+    SelectPosition = AutoFarm:AddParagraph({        
         Title = "Position : N/A"
     })
     
-    Toggle(Main, "Auto Farm Fish", "", "Farm Fish")
-    Toggle(Main, "Teleport To Select Position", "", "To Pos Stand")
+    Toggle(AutoFarm, "Auto Farm Fish", "", "Farm Fish")
+    Toggle(AutoFarm, "Teleport To Select Position", "", "To Pos Stand")
     
-    Main:AddButton({
+    AutoFarm:AddButton({
         Title = "Select Position",
         Callback = function()
             Config['SelectPositionStand'] = LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame
             SelectPosition:SetTitle("Position : " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.X)) .. " X " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Y)) .. " Y " .. tostring(math.floor(LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Z)) .. " Z")
         end
     })
+end
+
+-----------------------------------------------------------------------------------------
+
+
+
+
+Main = Tap.General:AddSection('General') do
+
+
+	Main:AddParagraph({
+		Title = "Important Notice!",
+		Content = "Use a Boat Before teleport" -- Remove HTML tags, if unsupported
+	})
 
     -- Teleporting button for "Megalodon Event"
 	Main:AddButton({
 		Title = "Megalodon Event",
 		Callback = function()
-			-- Set the target position for both the force field and teleportation
+			-- Set the target position for teleportation
 			local targetPosition = Vector3.new(7458, 132, 548)
 			local surfaceHeight = 1  -- Set the height of the surface (Y position)
-	
-			-- Create a new part for the force field
-			local forceFieldPart = Instance.new("Part")
-			forceFieldPart.Size = Vector3.new(10, 1, 10) -- Set the size of the part (10x1x10)
-			forceFieldPart.Position = Vector3.new(targetPosition.X, surfaceHeight + 1, targetPosition.Z) -- Set the position slightly above the surface
-			forceFieldPart.Anchored = true -- Make sure the part does not fall
-			forceFieldPart.BrickColor = BrickColor.new("White") -- Set the color of the part to white
-			forceFieldPart.Material = Enum.Material.SmoothPlastic -- Set the material of the part
-			forceFieldPart.Parent = game.Workspace -- Parent the part to the Workspace
-	
-			-- Create a ForceField
-			local forceField = Instance.new("ForceField") -- Create a new ForceField object
-			forceField.Parent = forceFieldPart -- Parent the ForceField to the part
 	
 			-- Teleport the player to the target position
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
 	
-			-- Destroy the force field after a delay (e.g., 5 seconds)
-			wait(5) -- Delay before the force field is destroyed
-			forceFieldPart:Destroy() -- Remove the force field part and its components from the game
+			-- Optionally, you can also add a wait before the teleportation finishes
+			wait(0.5)  -- Adjust the wait time if necessary
+	
+			-- You can add additional effects or logic if needed, like notifying the player or playing animations
 		end
 	})
-	
+end
+-------------------------------Algae----------------------------------------------
+	Main = Tap.General:AddSection('Algae') do
+
+	-- Teleporting button for "Sunstone Island"
+
+	-- Add Changelog
+	Main:AddParagraph({
+		Title = "Important Notice!",
+		Content = "Use a Boat Before teleport" -- Remove HTML tags, if unsupported
+	})
 
 
+	-- Define teleport locations
+	local teleportLocations = {
+		{Title = "Snowcap Algae", Position = CFrame.new(1827, 130, 4158)},
+		{Title = "Ancient Algae", Position = CFrame.new(5130, 130, 1347)},
+		{Title = "Mushgrove Algae", Position = CFrame.new(2660.3, 130.6, -1848.5)},
+		{Title = "Forsaken Algae", Position = CFrame.new(-3854.7, 130.6, 2120.2)},
+	}
+
+	-- Add buttons for each teleport location
+	for _, location in ipairs(teleportLocations) do
+		Main:AddButton({
+			Title = location.Title,
+			Callback = function()
+				local player = game.Players.LocalPlayer
+				if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+					player.Character.HumanoidRootPart.CFrame = location.Position
+				else
+					warn("Player or HumanoidRootPart not found!")
+				end
+			end
+		})
+	end
+end
+--------------------------------Location---------------------------------------------
+	Main = Tap.General:AddSection('Location') do
+	-- Teleporting button for "Crafting"
+	Main:AddButton({
+		Title = "Atlantean Storm (Event)",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3847.5, 151.4, 439.4)
+		end
+	})
+
+	-- Teleporting button for "Crafting"
+	Main:AddButton({
+		Title = "Isolate Depth",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1656.9, -213.9, -2843.3)
+		end
+	})
+
+	-- Teleporting button for "Crafting"
+	Main:AddButton({
+		Title = "Brine Pool",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1803.8, -142.7, -3409.6)
+		end
+	})
+
+	Main:AddButton({
+		Title = "Crafting - Ancient Archives",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3159.3, -745.5, 1681.9)
+		end
+	})
+
+	Main:AddButton({
+		Title = "Ancient Depth Serpent 1",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1389.4, -742.3, 1254.8)
+		end
+	})
+
+	Main:AddButton({
+		Title = "Ancient Depth Serpent 2",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1187, -736, 1572)
+		end
+	})
+
+
+	Main:AddButton({
+		Title = "Ancient Isle Waterfall",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5806.9, 135.3, 409.7)
+		end
+	})
+
+	Main:AddButton({
+		Title = "Sunstone Island",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-913.630615234375, 137.29348754882812, -1129.8995361328125)
+		end
+	})
+
+	Main:AddButton({
+		Title = "Vertigo",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-118.7, -515.3, 1142.3)
+		end
+	})
+
+	Main:AddButton({
+		Title = "Grand Reef",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3528.8, 132.5, 545.2)
+		end
+	})
+
+	Main:AddButton({
+		Title = "The Depths - Maze",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1705.4, -902.5, 1442.9)
+		end
+	})
+
+	Main:AddButton({
+		Title = "The Depths",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(946.2, -711.7, 1257.2)
+		end
+	})
+
+	-- Teleporting button for "Roslit Bay"
+	Main:AddButton({
+		Title = "Roslit Bay",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1501.675537109375, 133, 416.2070007324219)
+		end
+	})
+
+	-- Teleporting button for "Random Islands"
+	Main:AddButton({
+		Title = "Random Islands",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(237.6944580078125, 139.34976196289062, 43.103424072265625)
+		end
+	})
+
+	-- Teleporting button for "Moosewood"
+	Main:AddButton({
+		Title = "Moosewood",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(433.7972106933594, 147.07003784179688, 261.80218505859375)
+		end
+	})
+
+	-- Teleporting button for "Executive Headquarters"
+	Main:AddButton({
+		Title = "Executive Headquarters",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-36.46199035644531, -246.55001831054688, 205.77120971679688)
+		end
+	})
+
+	-- Teleporting button for "Statue Of Sovereignty"
+	Main:AddButton({
+		Title = "Statue Of Sovereignty",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(22.098665237426758, 159.01470947265625, -1039.8543701171875)
+		end
+	})
+
+	-- Teleporting button for "Mushgrove Swamp"
+	Main:AddButton({
+		Title = "Mushgrove Swamp",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2442.805908203125, 130.904052734375, -686.1648559570312)
+		end
+	})
+
+	-- Teleporting button for "Snowcap Island"
+	Main:AddButton({
+		Title = "Snowcap Island",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2589.534912109375, 134.9249267578125, 2333.099365234375)
+		end
+	})
+
+	-- Teleporting button for "Terrapin Island"
+	Main:AddButton({
+		Title = "Terrapin Island",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-201.7, 132.5, 1929.1)
+		end
+	})
+
+	-- Teleporting button for "Terrapin Island"
+	Main:AddButton({
+		Title = "Enchant Relic",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1309.2784423828125, -802.427001953125, -83.36397552490234)
+		end
+	})
+	end
+---------------------------Rod-----------------------------------------
+	Main = Tap.General:AddSection('Rod') do
+		-- Teleporting button for "Sunstone Island"
+	Main:AddButton({
+		Title = "Phoenix Rod",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5971.3, 272.4, 851.8)
+		end
+	})
+
+	Main:AddButton({
+		Title = "Magnet Rod",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-195.8, 132.5, 1930)
+		end
+	})
+
+	Main:AddButton({
+		Title = "Scurvy Rod",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2826.7, 214.9, 1511.9)
+		end
+	})
+
+	Main:AddButton({
+		Title = "Trident Rod",
+		Callback = function()
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1484, -225.4, -2198.6)
+		end
+	})
+
+	end
+
+---------------------------------Shop----------------------------------------------
+
+-- Initialize the main section
+Main = Tap.General:AddSection('Shop All') 
+
+-- Toggle for teleportation
+Toggle(Main, "Teleport To Buy", "", "Teleport To Buy")
+
+-- Iterate over all interactables in the workspace
+for i, v in pairs(workspace.world.interactables:GetDescendants()) do
+    if v.Name == "purchaserompt" or v.ClassName == "ProximityPrompt" then
+        v.HoldDuration = 0
+
+        -- Add a button for each purchasable item
+        Main:AddButton({
+            Title = "Buy " .. v.Parent.Name,
+            Description = v.ActionText,
+            Callback = function()
+                if fireproximityprompt and not Config['Teleport To Buy'] then
+                    local humanoidRootPart = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    if humanoidRootPart then
+                        local OldCFrame = humanoidRootPart.CFrame
+                        humanoidRootPart.CFrame = v.Parent:GetPivot()
+                        
+                        -- Delay to ensure the character is positioned before firing the prompt
+                        delay(0.3, function()
+                            fireproximityprompt(v, 1)
+                            humanoidRootPart.CFrame = OldCFrame
+                        end)
+                    end
+                else
+                    if not fireproximityprompt then
+                        Notify("Execute Not Support fireproximityprompt")
+                    end
+
+                    -- If teleportation is enabled, teleport the character
+                    local humanoidRootPart = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    if humanoidRootPart then
+                        humanoidRootPart.CFrame = v.Parent:GetPivot()
+                    end
+                end
+            end
+        })
+    end
 end
 
+-- Button for buying Enchant Relic
+Main:AddButton({
+    Title = "Buy Enchant Relic",
+    Description = "View [11,000C$]",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+
+        -- Store the player's current position
+        local previousPosition = character.HumanoidRootPart.Position
+
+        -- Teleport to the specified coordinates
+        local targetPosition = Vector3.new(-931.5254516601562, 223.78355407714844, -986.8485717773438)
+        character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
+
+        -- Fire the server function to interact with Merlin
+        local merlin = workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Merlin"):WaitForChild("Merlin"):WaitForChild("power")
+        merlin:InvokeServer()
+
+        -- Optionally wait before returning to the previous position
+        wait(0)  -- Adjust the wait time if needed
+
+        -- Return to the previous position after the interaction
+        character:SetPrimaryPartCFrame(CFrame.new(previousPosition))
+    end
+})
+----------------------------------------------DISCORD Configs----------------------------------------
+
+------------------------------------------------------------------------------------------------------
 IngredientList = {}
 for i,v in pairs(workspace.active:GetDescendants()) do
 	if v.ClassName == "TextLabel" and v.Text == "Ingredient" then
@@ -3810,207 +4119,181 @@ InfoFish = Tap.General:AddSection('Info Fish') do
 end
 
 
+-- First Section: Player Modify
 Modify = Tap.Player:AddSection('Player Modify') do
-	Slider(Modify, "Walk Speed", 10, 300, false, "Set Walk Speed")
-	Slider(Modify, "Jump Power", 25, 300, false, "Set Jump Power")
-	Toggle(Modify, "Walk Speed", "", "Toggle Walk Speed")
-	Toggle(Modify, "Jump Power", "", "Toggle Jump Power")
+    -- Adding sliders for Walk Speed and Jump Power
+    Slider(Modify, "Walk Speed", 10, 300, false, "Set Walk Speed")
+    Slider(Modify, "Jump Power", 25, 300, false, "Set Jump Power")
+
+    -- Toggle buttons for Walk Speed and Jump Power
+    Toggle(Modify, "Walk Speed", "", "Toggle Walk Speed")
+    Toggle(Modify, "Jump Power", "", "Toggle Jump Power")
 end
 
+-- Second Section: Misc Player
 MiscPlayer = Tap.Player:AddSection('Misc Player') do
-	DayOnlyLoop = nil
-	BypassGpsLoop = nil
-	Toggle(MiscPlayer, "Bypass Radar", "", "Bypass Radar", function(Value)
-		for _, v in pairs(game:GetService("CollectionService"):GetTagged("radarTag")) do
-			if v:IsA("BillboardGui") or v:IsA("SurfaceGui") then
-				v.Enabled = Value
-			end
-		end
-	end)
-	Toggle(MiscPlayer, "Bypass Gps", "", "Bypass Gps", function(Value)
-		if Value then
-			local XyzClone = game:GetService("ReplicatedStorage").resources.items.items.GPS.GPS.gpsMain.xyz:Clone()
-			XyzClone.Parent = game.Players.LocalPlayer.PlayerGui:WaitForChild("hud"):WaitForChild("safezone"):WaitForChild("backpack")
-			local Pos = GetPosition()
-			local StringInput = string.format("%s,%s,%s", ExportValue(Pos[1]), ExportValue(Pos[2]), ExportValue(Pos[3]))
-			XyzClone.Text = "<font color='#ff4949'>X</font><font color = '#a3ff81'>Y</font><font color = '#626aff'>Z</font>: "..StringInput
+    DayOnlyLoop = nil
+    BypassGpsLoop = nil
 
-			BypassGpsLoop = game:GetService("RunService").Heartbeat:Connect(function() -- Line 26
-				local Pos = GetPosition()
-				StringInput = string.format("%s,%s,%s", ExportValue(Pos[1]), ExportValue(Pos[2]), ExportValue(Pos[3]))
-				XyzClone.Text = "<font color='#ff4949'>X</font><font color = '#a3ff81'>Y</font><font color = '#626aff'>Z</font>: "..StringInput
-			end)
-		else
-			if PlayerGui.hud.safezone.backpack:FindFirstChild("xyz") then
-				PlayerGui.hud.safezone.backpack:FindFirstChild("xyz"):Destroy()
-			end
-			if BypassGpsLoop then
-				BypassGpsLoop:Disconnect()
-				BypassGpsLoop = nil
-			end
-		end
-	end)
-	Toggle(MiscPlayer, "Bypass Sell All ( Game Pass )", "", "Bypass Sell all", function(Value)
-		if Value then
-			PlayerGui.hud.safezone.backpack.inventory.Sell.sellall.Disabled = true
-			PlayerGui.hud.safezone.backpack.inventory.Sell.MouseButton1Click:Connect(function()
-				if PlayerGui.hud.safezone.backpack.inventory.Sell.sellall.Disabled then
-					ReplicatedStorage:WaitForChild("events"):WaitForChild("selleverything"):InvokeServer()
-				end
-			end)
-		else
-			PlayerGui.hud.safezone.backpack.inventory.Sell.sellall.Disabled = false
-		end
-	end)
-	Toggle(MiscPlayer, "Infinite Oxygen", "", "Infinite Oxygen", function(Value)
-		LocalPlayer.Character.client.oxygen.Disabled = Value
-	end)
-	Toggle(MiscPlayer, "Weather Clear", "", "Weather Clear", function(Value)
-		local OldWEA = ReplicatedStorage.world.weather.Value
-		if Value then
-			ReplicatedStorage.world.weather.Value = 'Clear' 
-		else
-			ReplicatedStorage.world.weather.Value = OldWEA
-		end
-	end)
-	Toggle(MiscPlayer, "Noclip", "", "Toggle Noclip")
-	Toggle(MiscPlayer, "Walk On Water", "", "Toggle Walk On Water", function(Value)
-		for i,v in pairs(workspace.zones.fishing:GetChildren()) do
-			if v.Name == "Ocean" then
-				v.CanCollide = Value
-			end
-		end
-	end)
-	Toggle(MiscPlayer, "Remove Fog", "", "Remove Fog", function(Value)
-		if Value then
-			if game:GetService("Lighting"):FindFirstChild("Sky") then
-				game:GetService("Lighting"):FindFirstChild("Sky").Parent = game:GetService("Lighting").bloom
-			end
-		else
-			if game:GetService("Lighting").bloom:FindFirstChild("Sky") then
-				game:GetService("Lighting").bloom:FindFirstChild("Sky").Parent = game:GetService("Lighting")
-			end
-		end
-	end)
-	Toggle(MiscPlayer, "Day Only", "", "Day Only", function(Value)
-		if Value then
-			DayOnlyLoop = RunService.Heartbeat:Connect(function()
-				game:GetService("Lighting").TimeOfDay = "12:00:00"
-			end)
-		else
-			if DayOnlyLoop then
-				DayOnlyLoop:Disconnect()
-				DayOnlyLoop = nil
-			end
-		end
-	end)
-	
-	MiscPlayer:AddButton({
-		Title = "Rejoin Server",
-		Description = "",
-		Callback = function()
-			TeleportService:TeleportToPlaceInstance(game.placeId, game.jobId, game.Players.LocalPlayer);
-		end,
-	})
-	MiscPlayer:AddButton({
-		Title = "Hop Server",
-		Description = "",
-		Callback = function()
-			AllFuncs.HopServer(true)
-		end
-	})
-	MiscPlayer:AddButton({
-		Title = "Hop Server Low",
-		Description = "",
-		Callback = function()
-			AllFuncs.HopServer(false)
-		end
-	})
-	MiscPlayer:AddButton({
-		Title = "Anti Lag (Once)",
-		Description = "",
-		Callback = function()
-			for _, object in pairs(game:GetDescendants()) do
-				if object:IsA("Part") or object:IsA("UnionOperation") or object:IsA("MeshPart") then
-					if object.Transparency ~= 1 then
-						object.Material = Enum.Material.SmoothPlastic
-					end
-				elseif object:IsA("ParticleEmitter") or object:IsA("Trail") then
-					object:Destroy()
-				end
-			end
-			Notify("Anti Lag Success")
-		end
-	})
-	-- MiscPlayer:AddButton({
-	-- 	Title = "Destroy All Particle",
-	-- 	Description = "",
-	-- 	Callback = function()
-	-- 		for _, object in pairs(game:GetDescendants()) do
-	-- 			if object:IsA("ParticleEmitter") or object:IsA("Trail") then
-	-- 				object:Destroy()
-	-- 			end
-	-- 		end
-	-- 		Notify("Success Destroy Particle")
-	-- 	end
-	-- })
-	
+    -- Bypass Radar Toggle
+    Toggle(MiscPlayer, "Bypass Radar", "", "Bypass Radar", function(Value)
+        for _, v in pairs(game:GetService("CollectionService"):GetTagged("radarTag")) do
+            if v:IsA("BillboardGui") or v:IsA("SurfaceGui") then
+                v.Enabled = Value
+            end
+        end
+    end)
+    
+    -- Bypass Gps Toggle
+    Toggle(MiscPlayer, "Bypass Gps", "", "Bypass Gps", function(Value)
+        if Value then
+            local XyzClone = game:GetService("ReplicatedStorage").resources.items.items.GPS.GPS.gpsMain.xyz:Clone()
+            XyzClone.Parent = game.Players.LocalPlayer.PlayerGui:WaitForChild("hud"):WaitForChild("safezone"):WaitForChild("backpack")
+            local Pos = GetPosition()
+            local StringInput = string.format("%s,%s,%s", ExportValue(Pos[1]), ExportValue(Pos[2]), ExportValue(Pos[3]))
+            XyzClone.Text = "<font color='#ff4949'>X</font><font color='#a3ff81'>Y</font><font color='#626aff'>Z</font>: "..StringInput
+
+            BypassGpsLoop = game:GetService("RunService").Heartbeat:Connect(function()
+                local Pos = GetPosition()
+                StringInput = string.format("%s,%s,%s", ExportValue(Pos[1]), ExportValue(Pos[2]), ExportValue(Pos[3]))
+                XyzClone.Text = "<font color='#ff4949'>X</font><font color='#a3ff81'>Y</font><font color='#626aff'>Z</font>: "..StringInput
+            end)
+        else
+            if PlayerGui.hud.safezone.backpack:FindFirstChild("xyz") then
+                PlayerGui.hud.safezone.backpack:FindFirstChild("xyz"):Destroy()
+            end
+            if BypassGpsLoop then
+                BypassGpsLoop:Disconnect()
+                BypassGpsLoop = nil
+            end
+        end
+    end)
+
+    -- Bypass Sell All (Game Pass) Toggle
+    Toggle(MiscPlayer, "Bypass Sell All ( Game Pass )", "", "Bypass Sell all", function(Value)
+        if Value then
+            PlayerGui.hud.safezone.backpack.inventory.Sell.sellall.Disabled = true
+            PlayerGui.hud.safezone.backpack.inventory.Sell.MouseButton1Click:Connect(function()
+                if PlayerGui.hud.safezone.backpack.inventory.Sell.sellall.Disabled then
+                    ReplicatedStorage:WaitForChild("events"):WaitForChild("selleverything"):InvokeServer()
+                end
+            end)
+        else
+            PlayerGui.hud.safezone.backpack.inventory.Sell.sellall.Disabled = false
+        end
+    end)
+
+    -- Infinite Oxygen Toggle
+    Toggle(MiscPlayer, "Infinite Oxygen", "", "Infinite Oxygen", function(Value)
+        LocalPlayer.Character.client.oxygen.Disabled = Value
+    end)
 end
+--     -- Weather Clear Toggle
+--     Toggle(MiscPlayer, "Weather Clear", "", "Weather Clear", function(Value)
+--         local OldWEA = ReplicatedStorage.world.weather.Value
+--         if Value then
+--             ReplicatedStorage.world.weather.Value = 'Clear'
+--         else
+--             ReplicatedStorage.world.weather.Value = OldWEA
+--         end
+--     end)
 
-Shoppy = Tap.Shop:AddSection('Shop All') do
-	Toggle(Shoppy, "Teleport To Buy", "", "Teleport To Buy")
-	for i,v in pairs(workspace.world.interactables:GetDescendants()) do
-		if v.Name == "purchaserompt" or v.ClassName == "ProximityPrompt" then
-			v.HoldDuration = 0
-			Shoppy:AddButton({
-				Title = "Buy "..v.Parent.Name,
-				Description = v.ActionText,
-				Callback = function()
-					if fireproximityprompt and not Config['Teleport To Buy'] then
-						local OldCFrame = LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame
-						LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = v.Parent:GetPivot()
-						delay(.3, function()
-							fireproximityprompt(v, 1)
-							LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = OldCFrame
-						end)
-					else
-						if not fireproximityprompt then
-							Notify("Execute Not Support fireproximityprompt")
-						end
-						LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = v.Parent:GetPivot()
-					end
-				end
-			})
-		end
-	end
-end
+--     -- Noclip Toggle
+-- 	Toggle(MiscPlayer, "Noclip", "", "Toggle Noclip", function(Value)
+-- 		if Value then
+-- 			-- Enable noclip mode
+-- 			-- Example: Player:SetNoclip(true)
+-- 			print("Noclip enabled")
+-- 		else
+-- 			-- Disable noclip mode
+-- 			-- Example: Player:SetNoclip(false)
+-- 			print("Noclip disabled")
+-- 		end
+-- 	end)
 
--- Button for buying Enchant Relic
-Shoppy:AddButton({
-    Title = "Buy Enchant Relic",
-    Description = "View [11,000C$]",
-    Callback = function()
-        local player = game.Players.LocalPlayer
-        local character = player.Character or player.CharacterAdded:Wait()
 
-        -- Store the player's current position
-        local previousPosition = character.HumanoidRootPart.Position
+--     -- Walk On Water Toggle
+--     Toggle(MiscPlayer, "Walk On Water", "", "Toggle Walk On Water", function(Value)
+--         for i, v in pairs(workspace.zones.fishing:GetChildren()) do
+--             if v.Name == "Ocean" then
+--                 v.CanCollide = Value
+--             end
+--         end
+--     end)
 
-        -- Teleport to the specified coordinates
-        local targetPosition = Vector3.new(-931.5254516601562, 223.78355407714844, -986.8485717773438)
-        character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
+--     -- Remove Fog Toggle
+--     Toggle(MiscPlayer, "Remove Fog", "", "Remove Fog", function(Value)
+--         local lighting = game:GetService("Lighting")
+--         if Value then
+--             if lighting:FindFirstChild("Sky") then
+--                 lighting:FindFirstChild("Sky").Parent = lighting.bloom
+--             end
+--         else
+--             if lighting.bloom:FindFirstChild("Sky") then
+--                 lighting.bloom:FindFirstChild("Sky").Parent = lighting
+--             end
+--         end
+--     end)
 
-        -- Fire the server function
-        local merlin = workspace:WaitForChild("world"):WaitForChild("npcs"):WaitForChild("Merlin"):WaitForChild("Merlin"):WaitForChild("power")
-        merlin:InvokeServer()
+--     -- Day Only Toggle
+--     Toggle(MiscPlayer, "Day Only", "", "Day Only", function(Value)
+--         if Value then
+--             DayOnlyLoop = RunService.Heartbeat:Connect(function()
+--                 game:GetService("Lighting").TimeOfDay = "12:00:00"
+--             end)
+--         else
+--             if DayOnlyLoop then
+--                 DayOnlyLoop:Disconnect()
+--                 DayOnlyLoop = nil
+--             end
+--         end
+--     end)
 
-        -- Wait for a brief moment before returning to the previous position
-        wait(0)  -- Adjust the wait time if needed
+--     -- Additional Buttons
+--     MiscPlayer:AddButton({
+--         Title = "Rejoin Server",
+--         Description = "",
+--         Callback = function()
+--             TeleportService:TeleportToPlaceInstance(game.placeId, game.jobId, game.Players.LocalPlayer)
+--         end,
+--     })
 
-        -- Return to the previous position
-        character:SetPrimaryPartCFrame(CFrame.new(previousPosition))
-    end
-})
+--     MiscPlayer:AddButton({
+--         Title = "Hop Server",
+--         Description = "",
+--         Callback = function()
+--             AllFuncs.HopServer(true)
+--         end
+--     })
+
+--     MiscPlayer:AddButton({
+--         Title = "Hop Server Low",
+--         Description = "",
+--         Callback = function()
+--             AllFuncs.HopServer(false)
+--         end
+--     })
+
+--     MiscPlayer:AddButton({
+--         Title = "Anti Lag (Once)",
+--         Description = "",
+--         Callback = function()
+--             for _, object in pairs(game:GetDescendants()) do
+--                 if object:IsA("Part") or object:IsA("UnionOperation") or object:IsA("MeshPart") then
+--                     if object.Transparency ~= 1 then
+--                         object.Material = Enum.Material.SmoothPlastic
+--                     end
+--                 elseif object:IsA("ParticleEmitter") or object:IsA("Trail") then
+--                     object:Destroy()
+--                 end
+--             end
+--             Notify("Anti Lag Success")
+--         end
+--     })
+-- end
+
+------------------------------------------------------------------------------------------------------------------
+
 
 WebHookConfigs = Tap.Configs:AddSection('WebHook') do
 	TextBox(WebHookConfigs, "WebHook","","discord.com/api/webhooks", false, "WebHook Configs")
@@ -4117,7 +4400,7 @@ Teleporting:AddButton({
 Teleporting:AddButton({
     Title = "Isolate Depth",
     Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-791.5, 141.5, -3102.7)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1656.9, -213.9, -2843.3)
     end
 })
 
@@ -4125,7 +4408,7 @@ Teleporting:AddButton({
 Teleporting:AddButton({
     Title = "Brine Pool",
     Callback = function()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1830, -143, -3425)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1803.8, -142.7, -3409.6)
     end
 })
 
@@ -4299,87 +4582,8 @@ Teleporting:AddButton({
 end
 
 ----------------------------------------------------------------------------------
-local Teleporting = Tap.Algae:AddSection('Algae')
-
--- Teleporting button for "Sunstone Island"
-
--- Add Changelog
-Teleporting:AddParagraph({
-    Title = "Important Notice!",
-    Content = "Use a Boat Before teleport" -- Remove HTML tags, if unsupported
-})
-
-
--- Define teleport locations
-local teleportLocations = {
-    {Title = "Snowcap Algae", Position = CFrame.new(1827, 130, 4158)},
-    {Title = "Ancient Algae", Position = CFrame.new(5130, 130, 1347)},
-    {Title = "Mushgrove Algae", Position = CFrame.new(2660.3, 130.6, -1848.5)},
-    {Title = "Forsaken Algae", Position = CFrame.new(-3854.7, 130.6, 2120.2)},
-}
-
--- Add buttons for each teleport location
-for _, location in ipairs(teleportLocations) do
-    Teleporting:AddButton({
-        Title = location.Title,
-        Callback = function()
-            local player = game.Players.LocalPlayer
-            if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                player.Character.HumanoidRootPart.CFrame = location.Position
-            else
-                warn("Player or HumanoidRootPart not found!")
-            end
-        end
-    })
-end
-
 
 ----------------------------------------------------------------------------------------
-
-
-
--- local Teleporting = Tap.Quest:AddSection('Quest') -- Corrected the placement of 'do'
-
--- -- Teleporting button for "Sunstone Island"
-
--- -- Add Changelog
--- Teleporting:AddParagraph({
---     Title = "Heaven's Rod",
---     Content = [["A heavenly rod with glowing floating parts and a divine halo, emitting mythical particles and celestial animations"]]
--- })
-
--- -- Define teleport buttons
--- local teleportLocations = {
---     {Title = "Lantern", Position = CFrame.new(-38.6, -246.6, 202.4)},
---     {Title = "Northern Expedition", Position = CFrame.new(19639.6, 140.9, 5310.3)},
--- 	{Title = "Northglider", Position = CFrame.new(20240.9,756.5,5756.5)},
--- 	{Title = "Camp 1", Position = CFrame.new(19527.6,132.7,5294.5)},
--- 	{Title = "CAMP 2", Position = CFrame.new(19998,1136.4,5520.2)},
--- 	{Title = "North", Position = CFrame.new(19558.5,132.7,5301.5)},
--- 	{Title = "Mountain Start", Position = CFrame.new(20208,208.4,5278.7)},
--- 	{Title = "Peak", Position = CFrame.new(19998,1136.4,5520.2)},
---     {Title = "Lever 1", Position = CFrame.new(19853, 476.3, 4970)},
---     {Title = "Lever 2", Position = CFrame.new(19599, 543.8, 5613)},
---     {Title = "Lever 3", Position = CFrame.new(19432, 690.1, 5856)},
---     {Title = "Lever 4", Position = CFrame.new(20193, 854.4, 5641)},
---     {Title = "Lever 5", Position = CFrame.new(19882, 424.7, 5381)},
---     {Title = "Lever 6", Position = CFrame.new(19963, 586.9, 5569)},
--- 	{Title = "Button 1", Position = CFrame.new(399.5, 134.9, 269)},
---     {Title = "Button 2", Position = CFrame.new(2930.4, 281.2, 2591.4)},
---     {Title = "Button 3", Position = CFrame.new(-2568, 181.3, 1350)},
---     {Title = "Button 4", Position = CFrame.new(-1717, 148, 732)},
---     {Title = "Button 5", Position = CFrame.new(5504.4, 143.5, -316.8)},
--- }
-
--- -- Add buttons for each teleport location
--- for _, location in ipairs(teleportLocations) do
---     Teleporting:AddButton({
---         Title = location.Title,
---         Callback = function()
---             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = location.Position
---         end
---     })
--- end
 
 
 function sendwebhook(url, data)
