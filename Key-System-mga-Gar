@@ -1,5 +1,5 @@
 -- Configuration
-local GKey = "UPDATEV1" -- change to whatever
+local GKey = "NemsHubV2" -- change to whatever
 local TextLabelText1 = "NemsHubV1 - Key System" -- change to whatever
 local TextLabelText2 = "Discord.gg/ag6WNjudvA" -- change to whatever!
 local TextFontAll = "FredokaOne" -- Enter Any Font!
