@@ -1,5 +1,5 @@
-if getgenv().cuppink then warn("CupPibk Hub : Already executed!") return end
-getgenv().cuppink = true
+if getgenv().NemsHubV1 then warn("NemsHubV1 : Already executed!") return end
+getgenv().NemsHubV1 = true
 
 if not game:IsLoaded() then
     game.Loaded:Wait()
@@ -119,7 +119,7 @@ local RunCount = false
 -- // // // Functions // // // --
 function ShowNotification(String)
     Fluent:Notify({
-        Title = "CupPink Hub",
+        Title = "NemsHubV1",
         Content = String,
         Duration = 5
     })
@@ -800,6 +800,18 @@ do
         Multi = false,
         Default = nil,
     })
+
+    -- Teleports:AddButton({
+	-- 	Title = "Kraken Pool (EXP)",
+	-- 	Callback = function()
+	-- 		local targetPosition = Vector3.new(-4260, -1000, 2021)
+	-- 		local surfaceHeight = 1  
+	-- 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+	
+	-- 		wait(0.5)
+	-- 	end
+	-- })
+
     IslandTPDropdownUI:OnChanged(function(Value)
         if teleportSpots ~= nil and HumanoidRootPart ~= nil then
             xpcall(function()
