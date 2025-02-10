@@ -193,33 +193,46 @@ function Kavo.CreateLib(kavName, themeList)
         end
     end
     local ScreenGui = Instance.new("ScreenGui")
-    local Main = Instance.new("Frame")
-    local MainCorner = Instance.new("UICorner")
-    local MainHeader = Instance.new("Frame")
-    local headerCover = Instance.new("UICorner")
-    local coverup = Instance.new("Frame")
-    local title = Instance.new("TextLabel")
-    local close = Instance.new("ImageButton")
-    local minimize = Instance.new("ImageButton") -- Added minimize button
-    local MainSide = Instance.new("Frame")
-    local sideCorner = Instance.new("UICorner")
-    local coverup_2 = Instance.new("Frame")
-    local tabFrames = Instance.new("Frame")
-    local tabListing = Instance.new("UIListLayout")
-    local pages = Instance.new("Frame")
-    local Pages = Instance.new("Folder")
-    local infoContainer = Instance.new("Frame")
+	local Main = Instance.new("Frame")
+	local MainCorner = Instance.new("UICorner")
+	local MainHeader = Instance.new("Frame")
+	local headerCover = Instance.new("UICorner")
+	local coverup = Instance.new("Frame")
+	local title = Instance.new("TextLabel")
+	local close = Instance.new("ImageButton")
+	local minimize = Instance.new("TextButton") -- Changed to TextButton
+	local MainSide = Instance.new("Frame")
+	local sideCorner = Instance.new("UICorner")
+	local coverup_2 = Instance.new("Frame")
+	local tabFrames = Instance.new("Frame")
+	local tabListing = Instance.new("UIListLayout")
+	local pages = Instance.new("Frame")
+	local Pages = Instance.new("Folder")
+	local infoContainer = Instance.new("Frame")
 
 
--- Set properties for the minimize button
-minimize.Name = "MinimizeButton"
+-- Configure the minimize button
 minimize.Parent = MainHeader
-minimize.Size = UDim2.new(0, 20, 0, 20) -- Adjust size as needed
-minimize.Position = UDim2.new(1, -40, 0.5, -10) -- Position next to close button
-minimize.Image = "rbxassetid://10590477450" -- Replace with your icon ID
-minimize.BackgroundTransparency = 1 -- If you want a transparent background
-minimize.ScaleType = Enum.ScaleType.Fit -- or other ScaleType as needed
-minimize.Visible = true -- Make the button visible
+minimize.Text = "-"  -- Set the text to a minus sign
+minimize.Font = Enum.Font.SourceSansBold -- Or any font you prefer
+minimize.TextSize = 14 -- Adjust the size as needed
+minimize.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text (adjust as needed)
+minimize.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Dark background (adjust as needed)
+minimize.Size = UDim2.new(0, 30, 0, 20) -- Adjust size
+minimize.Position = UDim2.new(1, -50, 0.5, -10) -- Position it (adjust as needed)
+minimize.AnchorPoint = Vector2.new(1, 0.5) -- Anchor to the right and center vertically
+minimize.Name = "MinimizeButton" -- Give it a name
+
+-- Add functionality to the minimize button
+minimize.MouseButton1Click:Connect(function()
+    Main.Visible = not Main.Visible -- Toggle visibility of the Main frame
+    -- Or, if you want to minimize to the taskbar (which is more complex and usually involves platform-specific code), you'd handle that here.  Roblox doesn't natively support minimizing to the taskbar. You would have to use external methods which are not usually possible in Roblox games.
+end)
+
+-- Example of positioning the close button (adjust as needed):
+close.Position = UDim2.new(1, -20, 0.5, -10) -- Example positioning
+close.AnchorPoint = Vector2.new(1, 0.5)
+
 
     local blurFrame = Instance.new("Frame")
 
